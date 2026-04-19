@@ -7,6 +7,6 @@ const userSchema = mongoose.Schema({
     cartData: {type: Object, default: {}},
 }, {minimize: false});
 
-const usermodel = mongoose.model("user", userSchema)
+const usermodel = mongoose.models.user || mongoose.model("user", userSchema)
 
 export default userModel;
