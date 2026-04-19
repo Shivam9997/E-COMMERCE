@@ -24,4 +24,4 @@ const adminLogin = async ()=>{
 
 }
 
-export {loginUser, registerUser, adminUser}
+export {loginUser, registerUser, adminLogin}
