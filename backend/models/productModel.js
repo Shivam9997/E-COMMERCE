@@ -10,7 +10,6 @@ const productSchema = mongoose.Schema({
     sizes: {type: Array, required: true},
     bestseller: {type: Boolean},
     date: {type:Number, required: true}
-
 })
 
 
