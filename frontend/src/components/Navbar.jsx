@@ -4,6 +4,9 @@ import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
+
+  const [showMenu, setShowMenu] = useState(false);
+
   const [visible, setVisible] = useState(false);
 
   const {
@@ -57,28 +60,58 @@ const Navbar = () => {
           alt=""
         />
 
-        <div className="group relative">
-          <img
-            onClick={() => (token ? null : navigate("/login"))}
-            className="w-5 cursor-pointer"
-            src={assets.profile_icon}
-            alt=""
-          />
-          {/* ----------- DropDown-------------- */}
+       
+<div className="relative">
+  <img
+    onClick={() => {
+      if (!token) {
+        navigate("/login");
+      } else {
+        setShowMenu(!showMenu);
+      }
+    }}
+    className="w-5 cursor-pointer"
+    src={assets.profile_icon}
+    alt=""
+  />
 
-          {token && (
-            <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
-              <div className="flex flex-col gap-2 w-36 py-3 px-5  bg-slate-100 text-gray-500 rounded">
-                <p onClick={()=>navigate('/profile')} className="cursor-pointer hover:text-black"> My Profile</p>
-                <p onClick={()=>navigate('/orders')} className="cursor-pointer hover:text-black"> Orders</p>
-                <p onClick={logout} className="cursor-pointer hover:text-black">
-                  {" "}
-                  Logout
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
+  {/* Dropdown */}
+  {token && showMenu && (
+    <div className="absolute right-0 pt-4 z-50">
+      <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded shadow-lg">
+        <p
+          onClick={() => {
+            navigate("/profile");
+            setShowMenu(false);
+          }}
+          className="cursor-pointer hover:text-black"
+        >
+          My Profile
+        </p>
+
+        <p
+          onClick={() => {
+            navigate("/orders");
+            setShowMenu(false);
+          }}
+          className="cursor-pointer hover:text-black"
+        >
+          Orders
+        </p>
+
+        <p
+          onClick={() => {
+            logout();
+            setShowMenu(false);
+          }}
+          className="cursor-pointer hover:text-black"
+        >
+          Logout
+        </p>
+      </div>
+    </div>
+  )}
+</div>
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} className="w-5 min-w-5:" alt="" />
           <p className="absolute -right-1.25 -bottom-1.25 w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
