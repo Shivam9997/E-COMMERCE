@@ -89,20 +89,31 @@ const Cart = () => {
         })}
       </div>
 
-      <div className="flex justify-end my-20">
-        <div className="w-full sm:w-[450px]">
-          <CartTotal />
-          <div className="w-full text-end">
-            <button
-              onClick={() => navigate("/place-order")}
-              className="bg-black text-white text-sm my-8 px-5 py-3"
-            >
-              {" "}
-              PROCEED TO CHECKOUT
-            </button>
+      {cartData.length > 0 ? (
+        <div className="flex justify-end my-20">
+          <div className="w-full sm:w-[450px]">
+            <CartTotal />
+            <div className="w-full text-end">
+              <button
+                onClick={() => navigate("/place-order")}
+                className="bg-black text-white text-sm my-8 px-5 py-3"
+              >
+                PROCEED TO CHECKOUT
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center my-20 gap-4">
+          <p className="text-gray-500 text-lg">Your cart is empty</p>
+          <button
+            onClick={() => navigate("/collection")}
+            className="bg-black text-white text-sm px-5 py-3"
+          >
+            Continue Shopping
+          </button>
+        </div>
+      )}
     </div>
   );
 };
